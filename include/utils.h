@@ -1,11 +1,7 @@
 #ifndef UTILS_H
 #define UTILS_H
 
-void handle_add(char *data, char *response);
-void handle_consult(char *data, char *response);
-void handle_delete(char *data, char *response);
-void handle_lines(char *data, char *response);
-void handle_search(char *data, char *response);
-void handle_search_parallel(char *data, char *response);
+void trim_newline(char *str);
+void safe_strcpy(char *dest, const char *src, size_t max);
 
 #endif
