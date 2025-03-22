@@ -1,25 +1,23 @@
-# Compilador e flags
 CC = gcc
-CFLAGS = -Wall -Iinclude
-SRC = src
-OBJ = obj
-BIN = bin
+CFLAGS = -Wall -g -Iinclude
+LDFLAGS =
 
-# Ficheiros
-CLIENT_OBJS = $(SRC)/dclient.c $(SRC)/client.c $(SRC)/utils.c
-SERVER_OBJS = $(SRC)/dserver.c $(SRC)/server.c $(SRC)/utils.c
+all: folders dserver dclient
 
-# Targets
-all: dclient dserver
+dserver: bin/dserver
+dclient: bin/dclient
 
-dclient: $(CLIENT_OBJS)
-	$(CC) $(CFLAGS) -o dclient $(CLIENT_OBJS)
+folders:
+	@mkdir -p src include obj bin tmp
 
-dserver: $(SERVER_OBJS)
-	$(CC) $(CFLAGS) -o dserver $(SERVER_OBJS)
+bin/dserver: obj/dserver.o obj/server.o obj/utils.o
+	$(CC) $(LDFLAGS) $^ -o $@
+
+bin/dclient: obj/dclient.o obj/client.o obj/utils.o
+	$(CC) $(LDFLAGS) $^ -o $@
+
+obj/%.o: src/%.c
+	$(CC) $(CFLAGS) -c $< -o $@
 
 clean:
-	rm -f dclient dserver
-	rm -f /tmp/dclient_fifo /tmp/dserver_fifo
-
-.PHONY: all clean
+	rm -f obj/* tmp/* bin/*
