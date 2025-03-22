@@ -10,10 +10,10 @@ dclient: bin/dclient
 folders:
 	@mkdir -p src include obj bin tmp
 
-bin/dserver: obj/dserver.o obj/server.o obj/utils.o
+bin/dserver: obj/dserver.o obj/server.o
 	$(CC) $(LDFLAGS) $^ -o $@
 
-bin/dclient: obj/dclient.o obj/client.o obj/utils.o
+bin/dclient: obj/dclient.o obj/client.o
 	$(CC) $(LDFLAGS) $^ -o $@
 
 obj/%.o: src/%.c
